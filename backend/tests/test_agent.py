@@ -55,6 +55,7 @@ def test_approver_is_not_even_shown_risky_tools(client, login):
 
 
 def test_message_validation(client, login):
+    app.dependency_overrides[get_llm] = lambda: ScriptedLLM([text("ok")])
     r = client.post("/api/agent/chat", json={"message": "x" * 5000}, headers=login("alice"))
     assert r.status_code == 422
     assert client.post("/api/agent/chat", json={"message": ""}, headers=login("alice")).status_code == 422
