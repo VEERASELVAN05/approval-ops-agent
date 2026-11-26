@@ -1,0 +1,17 @@
+name: Evals
+on: workflow_dispatch
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: backend } }
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      LLM_MODEL: gemini-3.5-flash-lite
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - run: python -m evals.run_evals --runs 3
+      - uses: actions/upload-artifact@v4
+        with: { name: eval-report, path: backend/evals/report.md }
