@@ -6,17 +6,22 @@ export function setToken(t) {
   else sessionStorage.removeItem("token");
 }
 
-export async function api(path, { method = "GET", body } = {}) {
+export async function api(path, options = {}) {
+  const { method = "GET", body } = options;
+  const headers = { "Content-Type": "application/json" };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
   const res = await fetch(`/api${path}`, {
     method,
-    headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-    body: body ? JSON.stringify(body) : undefined,
+    headers,
+    body: body !== undefined ? JSON.stringify(body) : undefined,
   });
+
   if (!res.ok) {
     let detail = res.statusText;
     try {
       const j = await res.json();
-      detail = typeof j.detail === "string" ? j.detail : "Invalid input";
+      detail = typeof j.detail === "string" ? j.detail : JSON.stringify(j.detail);
     } catch {}
     const err = new Error(detail);
     err.status = res.status;
