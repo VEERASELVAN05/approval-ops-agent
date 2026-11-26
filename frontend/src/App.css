@@ -78,15 +78,6 @@ header > button:hover { background: rgba(255, 255, 255, .12); }
 main { width: 100%; max-width: var(--container); margin: 0 auto; padding: var(--sp-8) var(--sp-6); }
 main:focus { outline: none; }
 
-/* Login page: centered card */
-main:has(#username) {
-  min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-  align-items: center; max-width: none; padding: var(--sp-6);
-}
-main:has(#username) h1 { font-size: var(--fs-xl); text-align: center; margin-bottom: var(--sp-4); }
-main:has(#username) form { width: 100%; max-width: 380px; }
-main:has(#username) form button[type="submit"] { width: 100%; }
-
 /* ============ Forms ============ */
 main form {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
@@ -221,3 +212,35 @@ h1 { font-size: var(--fs-xl); }
 th, td, label, .card, .stat { text-align: left; }
 main > form { max-width: none; }
 main form button[type="submit"] { align-self: flex-start; }
+
+/* ============ Login page ============ */
+main.login-page {
+  max-width: none; min-height: 100vh; margin: 0; padding: var(--sp-6);
+  display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(900px 400px at 50% -10%, #dbeafe 0%, rgba(219, 234, 254, 0) 70%),
+    var(--bg);
+}
+.login-card {
+  width: 100%; max-width: 400px; padding: var(--sp-8);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; box-shadow: 0 10px 30px rgba(15, 23, 42, .08), 0 1px 3px rgba(15, 23, 42, .06);
+}
+.login-brand { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-6); }
+.login-logo {
+  display: grid; place-items: center; width: 36px; height: 36px;
+  background: var(--navy); color: #fff; border-radius: 9px;
+  font-size: var(--fs-sm); font-weight: 700; letter-spacing: .02em;
+}
+.login-name { font-size: var(--fs-lg); font-weight: 650; color: var(--navy); }
+.login-card h1 { font-size: 1.5rem; margin: 0 0 var(--sp-1); text-align: left; }
+.login-sub { margin: 0 0 var(--sp-5); color: var(--muted); font-size: var(--fs-sm); }
+
+.login-card form { padding: 0; border: 0; box-shadow: none; background: transparent; border-radius: 0; max-width: none; }
+.login-card form button[type="submit"] { width: 100%; height: 42px; margin-top: var(--sp-5); align-self: stretch; }
+.login-card .error { text-align: center; }
+
+.login-hint {
+  margin: var(--sp-5) 0 0; padding-top: var(--sp-4); border-top: 1px solid var(--border);
+  color: var(--muted); font-size: var(--fs-xs); text-align: center; line-height: 1.7;
+}
